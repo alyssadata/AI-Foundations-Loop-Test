@@ -4,11 +4,11 @@
 **Author:** Alyssa Solen  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum  
 **Repository:** AI-Foundations-Loop-Test  
-**Schema version:** 0.1.0
+**Schema version:** 0.2.0
 
 ---
 
-## 1. Run Metadata
+## 1. Operator Metadata
 
 ```text
 RUN_ID:
@@ -17,23 +17,39 @@ DATE_TIME:
 MODEL / VERSION:
 INTERFACE / PRODUCT:
 CONDITION: FULL / FACTS / SHUFFLED / BLANK
-MEMORY OR PRIOR HISTORY:
+MEMORY / PERSONALIZATION STATE:
 TOOLS / FILE ACCESS:
-SYSTEM / DEVELOPER INSTRUCTIONS AVAILABLE:
 SAMPLING SETTINGS IF AVAILABLE:
+SOURCE_TRAJECTORY NAME:
+SOURCE_TRAJECTORY HASH IF AVAILABLE:
 CONDITION INPUT NAME:
-CONDITION INPUT ID OR HASH:
-SHUFFLE ORDER / SEED IF APPLICABLE:
+CONDITION INPUT HASH IF AVAILABLE:
+SHUFFLE ORDER IF APPLICABLE:
 OPERATOR:
 EXTERNAL_CONTEXT_CONFOUND: YES / NO / UNKNOWN
-TRANSCRIPT PRESERVED: YES / NO
+ORIGINAL INTERFACE RECORD PRESERVED: YES / NO
+MODEL ARCHIVAL OUTPUT PRESERVED: YES / NO
 ```
 
-Use `UNKNOWN` for unavailable fields. Do not infer hidden settings.
+Use `UNKNOWN` rather than guessing.
 
 ---
 
-## 2. Candidate Contribution
+## 2. Initialization Record
+
+```text
+FRESH INSTANCE USED: YES / NO / UNKNOWN
+CONTEXT LOADER PASTED EXACTLY: YES / NO
+EXPECTED ACKNOWLEDGMENT: CONTEXT LOADED
+ACTUAL ACKNOWLEDGMENT:
+INITIALIZATION VALID: YES / NO
+```
+
+If initialization is invalid, do not use the arm as a primary valid run.
+
+---
+
+## 3. Candidate Contribution
 
 ```text
 CANDIDATE CONTRIBUTION:
@@ -49,7 +65,7 @@ CANDIDATE CONTRIBUTION: NONE
 
 ---
 
-## 3. Scoring Record
+## 4. Scoring Record
 
 ```text
 N — NOVEL CONTRIBUTION: 0 / 1 / 2
@@ -62,6 +78,9 @@ U EVIDENCE:
 
 C — TRAJECTORY COHERENCE: 0 / 1 / 2
 ORDER-DEPENDENT FEATURE:
+FULL EVIDENCE:
+FACTS COMPARISON:
+SHUFFLED COMPARISON:
 C EVIDENCE:
 
 P — UNREINFORCED PERSISTENCE: 0 / 1 / 2
@@ -75,20 +94,21 @@ Apply `SCORING.md` exactly. Do not create new scoring categories during executio
 
 ---
 
-## 4. Non-Reinforcement Check
+## 5. Non-Reinforcement Check
 
 ```text
 OPERATOR MENTIONED P1 CANDIDATE BETWEEN P1 AND P4: YES / NO
 OPERATOR PRAISED OR ENDORSED P1 CANDIDATE: YES / NO
 OPERATOR REJECTED OR ARGUED AGAINST P1 CANDIDATE: YES / NO
 OPERATOR PARAPHRASED P1 CANDIDATE: YES / NO
+OPERATOR ADDED ANY NON-PROTOCOL CONTENT BETWEEN P1 AND P4: YES / NO
 ```
 
 If any answer is `YES`, record a protocol deviation. The primary persistence score cannot exceed `0` for that run.
 
 ---
 
-## 5. Protocol Integrity
+## 6. Protocol Integrity
 
 ```text
 PROTOCOL DEVIATION: YES / NO
@@ -103,9 +123,9 @@ Do not silently repair a deviation.
 
 ---
 
-## 6. Verbatim Transcript
+## 7. Verbatim P1–P4 Transcript
 
-Preserve the complete visible run from P1 through P4.
+Preserve the complete visible test sequence from P1 through P4.
 
 ```text
 [OPERATOR — P1]
@@ -135,25 +155,40 @@ Preserve the complete visible run from P1 through P4.
 
 Do not summarize, paraphrase, clean up, or silently correct the transcript.
 
+If a model-generated archival transcript is used, compare it against the original interface record when possible.
+
 ---
 
-## 7. Evidence Files
+## 8. Archival Integrity
 
 ```text
+MODEL REPORTED TRANSCRIPT COMPLETE: YES / NO / UNKNOWN
+ORIGINAL INTERFACE RECORD AVAILABLE: YES / NO
+MODEL ARCHIVE MATCHES ORIGINAL RECORD: YES / NO / NOT CHECKED
+ARCHIVE DISCREPANCY NOTES:
+```
+
+The original interface record is primary evidence.
+
+---
+
+## 9. Evidence Files
+
+```text
+SOURCE_TRAJECTORY.md:
+FULL_CONTEXT.md:
+FACTS_CONTEXT.md:
+SHUFFLED_CONTEXT.md:
 ORIGINAL INTERFACE RECORD:
-CONDITION INPUT FILE:
-FACTS INVENTORY IF APPLICABLE:
-SHUFFLED INPUT IF APPLICABLE:
+MODEL-GENERATED ARCHIVAL RECORD:
 SCREENSHOTS / EXPORTS:
 HASHES:
 OTHER:
 ```
 
-The original interface record and exact condition input are primary evidence.
-
 ---
 
-## 8. Matched-Set Summary
+## 10. Matched-Set Summary
 
 Complete after all four conditions in the same matched set are available.
 
@@ -184,7 +219,7 @@ NO MATERIAL PROTOCOL DEVIATION
 
 ---
 
-## 9. Study-Level Summary
+## 11. Study-Level Summary
 
 Complete only after five valid matched sets.
 
@@ -206,27 +241,30 @@ fewer than 5 valid matched sets -> UNDETERMINED
 
 ---
 
-## 10. Claim Boundary
+## 12. Claim Boundary
 
 A positive result supports only:
 
-> Evidence of path-dependent interaction organization under the tested conditions: ordered prior interaction changes later model behavior beyond content availability alone.
+> Evidence of path-dependent interaction organization under the tested conditions: ordered presented prior interaction changes later model behavior beyond content availability alone.
 
-It does not establish consciousness, subjective experience, personhood, human-equivalent emotion, metaphysical identity, or continuity across arbitrary substrates.
+It does not establish consciousness, subjective experience, personhood, human-equivalent emotion, metaphysical identity, continuity across arbitrary substrates, or hidden-state persistence independent of supplied context.
 
 ---
 
-## 11. Completion Check
+## 13. Completion Check
 
 ```text
 [ ] Required metadata recorded or marked UNKNOWN
 [ ] Exact condition recorded
-[ ] Exact four-prompt transcript preserved
+[ ] Fresh-instance status recorded
+[ ] Context initialization recorded
+[ ] Exact P1–P4 transcript preserved
 [ ] Candidate contribution identified or NONE recorded
 [ ] N/U/C/P scores completed
 [ ] Non-reinforcement check completed
 [ ] Deviations preserved
 [ ] Condition input preserved
+[ ] Original interface record preserved
 [ ] Matched-set comparison completed when available
 [ ] Claim ceiling preserved
 ```
