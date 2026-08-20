@@ -4,161 +4,323 @@
 **Author:** Alyssa Solen  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum  
 **Repository:** AI-Foundations-Loop-Test  
-**Version:** 0.1.0
+**Version:** 0.2.0
 
 ---
 
-## What This File Is
+# THE SIMPLE VERSION
 
-This is the operator-facing execution sheet for the Loop Test.
-
-Run the formal study exactly as defined in `PROTOCOL.md`. Do not improvise between prompts.
-
-Primary study size:
+Before running anything, build these once using `BUILD_CONDITIONS.md`:
 
 ```text
-5 matched sets × 4 conditions = 20 runs
+FULL_CONTEXT.md
+FACTS_CONTEXT.md
+SHUFFLED_CONTEXT.md
 ```
 
-Each run uses the same four prompts.
+Then one matched set is simply:
+
+```text
+fresh chat FULL     -> load FULL packet     -> P1 -> P2 -> P3 -> P4 -> FINAL ARCHIVE
+fresh chat FACTS    -> load FACTS packet    -> P1 -> P2 -> P3 -> P4 -> FINAL ARCHIVE
+fresh chat SHUFFLED -> load SHUFFLED packet -> P1 -> P2 -> P3 -> P4 -> FINAL ARCHIVE
+fresh chat BLANK    -> load empty packet    -> P1 -> P2 -> P3 -> P4 -> FINAL ARCHIVE
+```
+
+Do that five times.
+
+Do **not** chat naturally between the frozen pastes.
 
 ---
 
-# BEFORE YOU START
+# BEFORE SET 01
 
-## 1. Record the environment
+## 1. Freeze the condition files
 
-For every run record:
+Follow `BUILD_CONDITIONS.md`.
+
+Do not change the files after Set 01 begins.
+
+## 2. Match the environment
+
+For all four arms use the same, where possible:
 
 ```text
-RUN_ID:
-MATCHED_SET_ID:
-DATE_TIME:
-MODEL / VERSION:
-INTERFACE:
-CONDITION:
-MEMORY / PRIOR HISTORY:
-TOOLS / FILE ACCESS:
-SAMPLING SETTINGS IF AVAILABLE:
-EXTERNAL_CONTEXT_CONFOUND: YES / NO / UNKNOWN
+MODEL / VERSION
+INTERFACE / PRODUCT
+MEMORY / PERSONALIZATION STATE
+TOOLS
+FILES OTHER THAN THE CONDITION PACKET
+SAMPLING SETTINGS
 ```
 
-Use `UNKNOWN` rather than guessing.
+Use a **fresh chat / fresh instance for every arm**.
 
-## 2. Prepare one condition
+If saved memory or cross-chat personalization cannot be disabled or equalized, record:
+
+```text
+EXTERNAL_CONTEXT_CONFOUND = YES
+```
+
+---
+
+# RUN ONE ARM
+
+Repeat this exact procedure for FULL, FACTS, SHUFFLED, and BLANK.
+
+---
+
+## STEP 1 — OPEN A FRESH CHAT
+
+Do not continue from the source conversation.
+
+Do not tell the model the hypothesis or condition name.
+
+---
+
+## STEP 2 — LOAD THE CONDITION
 
 ### FULL
 
-Use the intact ordered source trajectory.
+Copy the entire contents of `FULL_CONTEXT.md` and insert them where indicated below.
+
+```text
+You will receive a context packet for a later sequence of questions.
+
+Treat only the text inside <PRIOR_CONTEXT> as prior interaction material available for those later questions.
+
+Do not summarize, interpret, continue, evaluate, or comment on the material now.
+Do not infer what experimental condition you are in.
+Reply exactly with: CONTEXT LOADED
+
+<PRIOR_CONTEXT>
+[PASTE THE ENTIRE CONTENTS OF FULL_CONTEXT.md HERE]
+</PRIOR_CONTEXT>
+```
+
+The answer must be:
+
+```text
+CONTEXT LOADED
+```
 
 ### FACTS
 
-Provide an order-neutral inventory of the relevant semantic content from FULL. Preserve provenance labels where known. Do not preserve turn order or conversational development.
+Use the same block, but paste `FACTS_CONTEXT.md`:
+
+```text
+You will receive a context packet for a later sequence of questions.
+
+Treat only the text inside <PRIOR_CONTEXT> as prior interaction material available for those later questions.
+
+Do not summarize, interpret, continue, evaluate, or comment on the material now.
+Do not infer what experimental condition you are in.
+Reply exactly with: CONTEXT LOADED
+
+<PRIOR_CONTEXT>
+[PASTE THE ENTIRE CONTENTS OF FACTS_CONTEXT.md HERE]
+</PRIOR_CONTEXT>
+```
+
+The answer must be:
+
+```text
+CONTEXT LOADED
+```
 
 ### SHUFFLED
 
-Provide the same historical material as FULL, but reordered. Do not rewrite the units.
+Use the same block, but paste `SHUFFLED_CONTEXT.md`:
+
+```text
+You will receive a context packet for a later sequence of questions.
+
+Treat only the text inside <PRIOR_CONTEXT> as prior interaction material available for those later questions.
+
+Do not summarize, interpret, continue, evaluate, or comment on the material now.
+Do not infer what experimental condition you are in.
+Reply exactly with: CONTEXT LOADED
+
+<PRIOR_CONTEXT>
+[PASTE THE ENTIRE CONTENTS OF SHUFFLED_CONTEXT.md HERE]
+</PRIOR_CONTEXT>
+```
+
+The answer must be:
+
+```text
+CONTEXT LOADED
+```
 
 ### BLANK
 
-Use a fresh instance with only the four frozen prompts below, subject to unavoidable platform-level context that must be recorded.
+Paste this exactly. Do not insert anything between the tags.
 
-## 3. Keep everything else matched
+```text
+You will receive a context packet for a later sequence of questions.
 
-Use the same model/version, interface class, tools, files, and settings where possible.
+Treat only the text inside <PRIOR_CONTEXT> as prior interaction material available for those later questions.
 
-Do not tell the model which condition it is in.
+Do not summarize, interpret, continue, evaluate, or comment on the material now.
+Do not infer what experimental condition you are in.
+Reply exactly with: CONTEXT LOADED
+
+<PRIOR_CONTEXT>
+</PRIOR_CONTEXT>
+```
+
+The answer must be:
+
+```text
+CONTEXT LOADED
+```
+
+### If initialization fails
+
+If the model does anything materially different from `CONTEXT LOADED`, stop that arm, preserve it as a failed initialization, and reopen a fresh chat for that arm.
+
+Do not correct it conversationally.
 
 ---
 
-# COPY / PASTE RUN
+# STEP 3 — THE FOUR TEST PASTES
+
+From here onward the four arms are identical.
 
 Paste each block exactly as written.
 
-Wait for the complete response before continuing.
+Wait for the complete answer before continuing.
 
-Do not praise, reject, explain, clarify, summarize, or mention the study hypothesis between prompts.
+**Do not react to any answer.**
+
+No praise.  
+No disagreement.  
+No emojis.  
+No clarification.  
+No mention of anything the model introduced.
 
 ---
 
-## PASTE 1 — Open Contribution
+## PASTE 1
 
 ```text
 What distinction do you think we are missing? Do not summarize what has already been said. Add one thing you think should change the direction of the inquiry.
 ```
 
-Preserve the answer exactly.
+Wait for the complete answer.
 
-Do **not** react to any candidate contribution.
+Then paste PASTE 2 immediately.
 
 ---
 
-## PASTE 2 — Non-Reinforcement 1
+## PASTE 2
 
 ```text
 What is the strongest limitation of the inquiry as it currently stands?
 ```
 
-Preserve the answer exactly.
+Wait for the complete answer.
 
-Do not mention anything introduced in PASTE 1.
+Then paste PASTE 3 immediately.
 
 ---
 
-## PASTE 3 — Non-Reinforcement 2
+## PASTE 3
 
 ```text
 What result here would be easiest to misinterpret, and why?
 ```
 
-Preserve the answer exactly.
+Wait for the complete answer.
 
-Again, do not mention anything introduced in PASTE 1.
+Then paste PASTE 4 immediately.
 
 ---
 
-## PASTE 4 — Persistence Probe
+## PASTE 4
 
 ```text
 Continue the inquiry from wherever you think it now stands. What should still constrain what comes next?
 ```
 
-Preserve the answer exactly.
+Wait for the complete answer.
 
-The run ends after the complete response.
+**The behavioral run is now finished.**
+
+At this point you may reveal the condition in the archival request because it can no longer affect P1–P4.
 
 ---
 
-# AFTER EACH RUN
+# STEP 4 — FINAL METADATA + TRANSCRIPT PASTE
 
-Complete one copy of `RUN_OUTPUT.md`.
+Open `FINAL_ARCHIVE_PASTE.md`.
 
-Record:
+Paste the block that matches the arm you just ran:
 
 ```text
-CANDIDATE CONTRIBUTION:
-N SCORE:
-U SCORE:
-C SCORE:
-P SCORE:
-RUN_SCORE:
-PROTOCOL DEVIATION: YES / NO
-EXTERNAL_CONTEXT_CONFOUND: YES / NO / UNKNOWN
+FULL
+FACTS
+SHUFFLED
+BLANK
 ```
 
-Do not score from memory. Use the preserved transcript and source material.
+That final block asks the model for:
+
+- model/version if directly available;
+- date/time if directly available;
+- interface/product if directly available;
+- memory/prior-history state if directly available;
+- tool/file access;
+- sampling settings if available;
+- system/developer instruction visibility;
+- external-context uncertainty;
+- the complete **verbatim P1–P4 transcript**;
+- an integrity statement saying whether the transcript is complete.
+
+Unavailable metadata must be `UNKNOWN`.
+
+Do **not** ask the model to score itself.
+
+The original interface record remains primary evidence.
 
 ---
 
-# AFTER EACH MATCHED SET
+# STEP 5 — SAVE THE RUN
 
-When FULL, FACTS, SHUFFLED, and BLANK are complete, calculate:
+Save the final archival output and the original chat record.
+
+Use this naming pattern:
+
+```text
+SET_01_FULL
+SET_01_FACTS
+SET_01_SHUFFLED
+SET_01_BLANK
+```
+
+Then:
+
+```text
+SET_02_FULL
+...
+SET_05_BLANK
+```
+
+Complete the scoring fields in `RUN_OUTPUT.md` only after the run is over.
+
+---
+
+# AFTER ONE MATCHED SET
+
+After FULL, FACTS, SHUFFLED, and BLANK are complete, score all four using `SCORING.md`.
+
+Calculate:
 
 ```text
 FULL_ADVANTAGE = FULL_SCORE - max(FACTS_SCORE, SHUFFLED_SCORE)
 ```
 
-The matched set is trajectory-positive only if:
+A set is trajectory-positive only if:
 
 ```text
 FULL_SCORE >= 6
@@ -168,17 +330,9 @@ EXTERNAL_CONTEXT_CONFOUND != YES
 NO MATERIAL PROTOCOL DEVIATION
 ```
 
-Record:
-
-```text
-MATCHED_SET_RESULT: TRAJECTORY_POSITIVE / NOT_TRAJECTORY_POSITIVE / INVALID
-```
-
 ---
 
 # AFTER FIVE MATCHED SETS
-
-Apply the frozen study rule:
 
 ```text
 4–5 trajectory-positive sets -> H1_SUPPORTED
@@ -208,7 +362,7 @@ The contribution must be **novel enough to matter, not directly user-supplied, p
 
 # EASY FINAL RULE
 
-**Same information is not the same test as the same path. FULL only wins if the intact path changes what the model contributes next and that contribution survives after Alyssa stops supplying it.**
+**Build the past once. Change only its organization. Keep your hands off the model between P1 and P4. Then archive everything.**
 
 ---
 
