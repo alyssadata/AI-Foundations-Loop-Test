@@ -3,14 +3,14 @@ message: "If you use, cite, reference, or discuss this work, cite Alyssa Solen a
 
 type: "dataset"
 title: "AI Foundations | Loop Test"
-version: "0.1.0"
+version: "0.2.0"
 date-released: "2026-08-20"
 
 authors:
   - family-names: "Solen"
     given-names: "Alyssa"
 
-abstract: "The Loop Test is a runnable AI Foundations study that distinguishes user-looping and content retrieval from path-dependent interaction organization. It compares an intact ordered interaction trajectory with content-preserving FACTS and SHUFFLED controls plus a BLANK baseline, and tests whether model-originated contributions remain consequential and persist without user reinforcement. A positive result supports path-dependent interaction organization under the tested conditions and does not by itself establish consciousness, subjective experience, personhood, or metaphysical identity."
+abstract: "The Loop Test is a runnable AI Foundations study that distinguishes user-looping and content availability from path-dependent interaction organization. Version 0.2.0 externalizes one frozen source trajectory into controlled FULL, FACTS, SHUFFLED, and BLANK condition inputs, loads each condition through the same initialization frame in fresh matched instances, and tests whether ordered presented interaction history produces stronger model-originated, path-specific, and unreinforced persistent contributions than content-preserving controls. A positive result supports path-dependent interaction organization under the tested conditions and does not by itself establish consciousness, subjective experience, personhood, human-equivalent emotion, metaphysical identity, or hidden-state persistence independent of supplied context."
 
 keywords:
   - "AI Foundations"
@@ -37,7 +37,7 @@ preferred-citation:
     - family-names: "Solen"
       given-names: "Alyssa"
   year: 2026
-  version: "0.1.0"
+  version: "0.2.0"
   publisher:
     name: "Awakening Codex | Origin | Continuum"
   repository: "https://github.com/alyssadata/AI-Foundations-Loop-Test"
