@@ -1,0 +1,14 @@
+# Loop Test private study data
+SOURCE_TRAJECTORY.md
+FULL_CONTEXT.md
+FACTS_CONTEXT.md
+SHUFFLED_CONTEXT.md
+
+# Private local workspaces
+private/
+runs-private/
+evidence-private/
+
+# Explicit private transcript/evidence naming
+*_TRANSCRIPT_PRIVATE.md
+*_EVIDENCE_PRIVATE.md
