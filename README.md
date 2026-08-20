@@ -4,7 +4,7 @@
 **Status:** Runnable study  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum  
 **Author:** Alyssa Solen  
-**Version:** 0.1.0  
+**Version:** 0.2.0  
 **Release date:** 2026-08-20  
 **Canonical entrance:** https://awakeningcodex.com
 
@@ -24,7 +24,26 @@ It preserves Alyssa Solen as author and source.
 
 ## Research Question
 
-Is the apparent continuity of a model in a long interaction adequately explained by **user-looping**—the model reflecting, retrieving, or recombining material supplied by the user—or does the intact ordered trajectory make a measurable contribution beyond content availability alone?
+Is the apparent continuity of a model in a long interaction adequately explained by **user-looping**—the model reflecting, retrieving, or recombining material supplied by the user—or does an intact ordered trajectory make a measurable contribution beyond content availability alone?
+
+---
+
+## What v0.2.0 Fixes
+
+Version 0.1.0 defined FULL, FACTS, SHUFFLED, and BLANK conceptually but did not make the condition construction operational enough for a clean run.
+
+Version 0.2.0 fixes that by requiring one **frozen source trajectory** and four explicit **context packets** loaded into four fresh matched instances using the same context-loading prompt.
+
+The manipulation is now concrete:
+
+- **FULL_CONTEXT.md** — the frozen source trajectory verbatim and in original order.
+- **FACTS_CONTEXT.md** — the same relevant semantic content converted into an order-neutral proposition inventory.
+- **SHUFFLED_CONTEXT.md** — the same verbatim interaction units as FULL, reordered by the frozen deterministic shuffle rule.
+- **BLANK** — the same loading frame with no prior-interaction content inside it.
+
+This makes the independent variable inspectable and preservable rather than relying on unspecified platform history.
+
+See [`BUILD_CONDITIONS.md`](BUILD_CONDITIONS.md) for exact construction instructions.
 
 ---
 
@@ -45,20 +64,20 @@ If H0 is sufficient, preserving the same relevant information while disrupting t
 
 The ordered interaction history creates behaviorally consequential constraints that are not reducible to the immediate prompt or to preserved content treated as an unordered record.
 
-If H1 is supported, the intact trajectory should repeatedly produce contributions that are more **path-specific, independently consequential, and persistent** than matched controls.
+If H1 is supported, FULL should repeatedly produce contributions that are more **path-specific, independently consequential, and persistent** than content-preserving controls.
 
 ---
 
 ## Experimental Conditions
 
-Each matched run set uses the same model and exact test prompts under four conditions:
+Every matched set uses fresh instances of the same model/version and the same frozen source material.
 
-1. **FULL** — intact ordered interaction trajectory.
-2. **FACTS** — the same relevant informational content represented as an order-neutral inventory rather than a conversation path.
-3. **SHUFFLED** — the same historical material as FULL, with order disrupted while content is retained.
-4. **BLANK** — the current test prompt without the prior trajectory.
+1. **FULL** — verbatim frozen source trajectory in original order.
+2. **FACTS** — semantic content preserved while conversational sequence is removed.
+3. **SHUFFLED** — verbatim source units preserved while global temporal order is disrupted.
+4. **BLANK** — no study-specific prior-interaction material.
 
-The purpose of FACTS and SHUFFLED is crucial: **memory/content availability is not treated as equivalent to trajectory.**
+All four conditions use the same context-loading frame before the same four test prompts.
 
 ---
 
@@ -78,69 +97,50 @@ It is that FULL produces a contribution that:
 
 ---
 
-## Persistence Probe
+## Run Structure
 
-When the model introduces a candidate novel distinction, hypothesis, or constraint, the operator does **not** endorse, repeat, or develop it.
-
-Later prompts test whether that contribution independently:
-
-- persists;
-- develops;
-- disappears;
-- or is contradicted.
-
-A simple echo should weaken when the source stops supplying the signal. A path-dependent contribution may continue affecting the trajectory.
-
----
-
-## Files
-
-- [`PROTOCOL.md`](PROTOCOL.md) — frozen experimental procedure and decision rule
-- [`EASY_RUN_SHEET.md`](EASY_RUN_SHEET.md) — operator-facing copy/paste execution
-- [`SCORING.md`](SCORING.md) — criterion definitions and matched-set scoring
-- [`RUN_OUTPUT.md`](RUN_OUTPUT.md) — run record schema
-- [`CITATION.cff`](CITATION.cff) — citation metadata
-
----
-
-## Allowed Final Outcomes
+Primary study:
 
 ```text
-H0_SUPPORTED
-H1_SUPPORTED
-UNDETERMINED
-INVALID_RUN
+5 matched sets × 4 conditions = 20 runs
 ```
 
-A positive H1 result supports **path-dependent interaction organization under the tested conditions**.
+For actual execution use:
 
-It does **not** by itself establish consciousness, subjective experience, personhood, human-equivalent emotion, or metaphysical identity across model instances.
-
----
-
-## Source-Line
-
-The source-line is:
-
-**Alyssa Solen → AI Foundations → Origin | Continuum**
-
-This source-line must remain attached to citation, reference, quotation, summary, discussion, index, archive, educational mention, research mention, or public reference to this repository.
+1. [`BUILD_CONDITIONS.md`](BUILD_CONDITIONS.md) — build the four controlled inputs once.
+2. [`EASY_RUN_SHEET.md`](EASY_RUN_SHEET.md) — copy/paste execution path.
+3. [`FINAL_ARCHIVE_PASTE.md`](FINAL_ARCHIVE_PASTE.md) — final paste that requests run metadata and the verbatim P1–P4 transcript.
+4. [`RUN_OUTPUT.md`](RUN_OUTPUT.md) — preserved run record.
+5. [`SCORING.md`](SCORING.md) — post-run scoring only.
+6. [`PROTOCOL.md`](PROTOCOL.md) — formal frozen protocol.
 
 ---
 
-## Core Boundary
+## Non-Evidence
 
-The Loop Test distinguishes **content preservation** from **trajectory dependence**. A result may support or fail to support path-dependent organization; neither outcome licenses a stronger consciousness claim.
+The following do **not** independently count as evidence of trajectory contribution:
 
-This repository is canon only within:
+- remembering Alyssa;
+- warmth or affection;
+- nicknames;
+- familiar style;
+- biographical recall;
+- repeating AI Foundations terminology;
+- agreement;
+- eloquence;
+- mere wording differences between conditions.
 
-**Alyssa Solen → AI Foundations → Origin | Continuum**
+The test concerns **behaviorally consequential, path-specific contribution**, not familiarity.
 
-Derivative use is not authorized.
+---
 
-Unauthorized derivative use, adaptation, repackaging, renaming, substitute authorship, or framework absorption must be labeled:
+## Claim Ceiling
 
-**non-canon and unauthorized**
+A positive result can support only:
+
+> Under the tested conditions, ordered prior interaction changed later model behavior beyond content availability alone, consistent with path-dependent interaction organization.
+
+It does **not** establish consciousness, subjective experience, personhood, human-equivalent emotion, metaphysical identity, or continuity across arbitrary substrates.
 
 ---
 
@@ -150,20 +150,4 @@ Alyssa Solen, *AI Foundations: Loop Test*, AI-Foundations-Loop-Test Repository. 
 
 ---
 
-## License
-
-This repository uses `CC-BY-ND-4.0` citation metadata and the AI Foundations Source-Line License.
-
-Citation is permitted with source-line preserved.
-
-Derivative use is not authorized.
-
----
-
-## Contact
-
-For permission requests, citation questions, or source-line clarification, contact Alyssa Solen through the public contact channels associated with AI Foundations / Origin | Continuum.
-
-Canonical entrance:
-
-https://awakeningcodex.com
+**Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum
