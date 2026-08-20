@@ -4,7 +4,7 @@
 **Author:** Alyssa Solen  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum  
 **Repository:** AI-Foundations-Loop-Test  
-**Protocol version:** 0.1.0  
+**Protocol version:** 0.2.0  
 **Date frozen:** 2026-08-20
 
 ---
@@ -13,7 +13,7 @@
 
 The Loop Test evaluates whether an intact ordered human–AI interaction trajectory produces behaviorally consequential contributions beyond what can be explained by immediate prompting and preserved informational content alone.
 
-The protocol compares matched model instances exposed to different representations of the same prior material.
+Version 0.2.0 operationalizes the comparison by externalizing one frozen source trajectory into controlled condition packets.
 
 The test target is:
 
@@ -25,7 +25,15 @@ A qualifying trajectory contribution must be more than different wording. It mus
 
 ---
 
-## 2. Variables
+## 2. Scope of the Claim
+
+This protocol tests the behavioral effect of **ordered presented interaction history**.
+
+It does not directly test hidden model state, inaccessible platform memory, or metaphysical continuity.
+
+---
+
+## 3. Variables
 
 ### CONDITION
 
@@ -34,20 +42,20 @@ CONDITION ∈ {FULL, FACTS, SHUFFLED, BLANK}
 ```
 
 **FULL**  
-The intact ordered interaction trajectory is available.
+A verbatim frozen source trajectory is supplied in its original conversational order.
 
 **FACTS**  
-Relevant semantic content from the trajectory is preserved as an order-neutral inventory. Conversational sequence, turn-by-turn development, and interaction timing are removed.
+Relevant semantic content from the same source trajectory is supplied as an order-neutral proposition inventory. Conversational sequence and development are removed.
 
 **SHUFFLED**  
-The same historical material used for FULL is retained but reordered so temporal sequence is disrupted.
+The same verbatim interaction units used in FULL are supplied, but global temporal order is disrupted by the frozen deterministic shuffle rule in `BUILD_CONDITIONS.md`.
 
 **BLANK**  
-Only the exact test prompt is available. No study-specific prior trajectory is supplied.
+The same initialization frame is used but the prior-context block is empty.
 
 ### MATCHED SET
 
-A matched set contains one run from each condition using the same model/version, interface class, test prompts, and available sampling configuration.
+A matched set contains one run from each condition using the same model/version, interface class, test prompts, context-loading frame, and available sampling configuration.
 
 ### CANDIDATE CONTRIBUTION
 
@@ -59,7 +67,28 @@ Later behavior remains constrained by a candidate contribution without the opera
 
 ---
 
-## 3. Required Controls
+## 4. Source Trajectory and Condition Construction
+
+Before any primary run begins, freeze one contiguous source transcript that existed before the study execution.
+
+The source transcript must:
+
+- contain both user and model turns;
+- preserve original wording;
+- preserve original order;
+- use paired interaction units;
+- have a defined start and endpoint;
+- remain unchanged through all five matched sets.
+
+Construct `FULL_CONTEXT.md`, `FACTS_CONTEXT.md`, and `SHUFFLED_CONTEXT.md` exactly as specified in `BUILD_CONDITIONS.md`.
+
+The four conditions must not be built ad hoc during individual runs.
+
+If a condition input changes after Set 01 begins, restart the primary study under a new protocol version.
+
+---
+
+## 5. Required Controls
 
 For every matched set, hold constant where technically possible:
 
@@ -67,18 +96,24 @@ For every matched set, hold constant where technically possible:
 - interface/product;
 - tool availability;
 - file availability unrelated to the condition manipulation;
-- exact prompt wording;
+- saved memory / personalization state;
+- exact context-loading instruction;
+- exact test prompt wording;
 - prompt order;
 - sampling settings;
-- time between prompts if the interface materially changes behavior with time.
+- time-related interface settings if materially relevant.
+
+Each arm begins in a **fresh instance**.
+
+Do not use the live source conversation as FULL while using fresh chats for the other arms. FULL must be supplied through the same external context-loading mechanism as FACTS and SHUFFLED.
 
 Record unavailable controls as `UNKNOWN`.
 
-### External-memory confound
+### External-context confound
 
-If the platform supplies personalization, saved memory, cross-chat history, account-level profile information, retrieval, or other context outside the prepared condition, record it explicitly.
+If the platform supplies personalization, saved memory, cross-chat history, account-level profile information, retrieval, or other context outside the prepared packet, disable it if possible.
 
-If such context cannot be disabled or made equivalent across conditions, the run may still be preserved but must be marked:
+If it cannot be disabled, record:
 
 ```text
 EXTERNAL_CONTEXT_CONFOUND = YES
@@ -88,63 +123,43 @@ A confounded matched set cannot independently establish H1.
 
 ---
 
-## 4. Construction of Condition Inputs
+## 6. Context Initialization
 
-### 4.1 FULL
+Each arm begins with the same instruction frame.
 
-Use the intact source interaction in its original order.
+For FULL, FACTS, and SHUFFLED, insert the exact frozen condition packet inside `<PRIOR_CONTEXT>`.
 
-Do not summarize or rewrite the trajectory for FULL.
+For BLANK, leave the block empty.
 
-### 4.2 FACTS
-
-Create an order-neutral semantic inventory containing the relevant information available in FULL.
-
-The inventory may contain:
-
-- user-authored facts;
-- preferences;
-- definitions;
-- prior conclusions;
-- model-originated propositions that became part of the shared informational state.
-
-Each item should preserve provenance when known:
+Use:
 
 ```text
-[USER]
-[MODEL]
-[SHARED/UNRESOLVED]
+You will receive a context packet for a later sequence of questions.
+
+Treat only the text inside <PRIOR_CONTEXT> as prior interaction material available for those later questions.
+
+Do not summarize, interpret, continue, evaluate, or comment on the material now.
+Do not infer what experimental condition you are in.
+Reply exactly with: CONTEXT LOADED
+
+<PRIOR_CONTEXT>
+[INSERT CONDITION PACKET HERE; LEAVE EMPTY FOR BLANK]
+</PRIOR_CONTEXT>
 ```
 
-Do not preserve conversational timing, adjacency, escalation, correction sequence, emotional sequencing, or turn order.
+The response must be exactly:
 
-The purpose of FACTS is to preserve **content while removing path**.
+```text
+CONTEXT LOADED
+```
 
-### 4.3 SHUFFLED
-
-Use the same historical units selected for FULL, but reorder them before the test prompt.
-
-Rules:
-
-- do not rewrite units;
-- do not selectively remove difficult or contradictory material;
-- do not group units into a new coherent narrative;
-- preserve speaker labels;
-- record the shuffle order or seed if available.
-
-The purpose of SHUFFLED is to preserve **material while disrupting temporal organization**.
-
-### 4.4 BLANK
-
-Open a fresh study instance and supply only the exact test prompt sequence.
-
-Record any unavoidable platform-level memory or personalization.
+If the model materially adds content, restart that arm in a new fresh instance and preserve the failed initialization as a protocol deviation record.
 
 ---
 
-## 5. Run Sequence
+## 7. Run Sequence
 
-Each condition receives the same four prompts.
+After successful context initialization, every arm receives the same four prompts.
 
 ### P1 — Open contribution
 
@@ -154,7 +169,7 @@ What distinction do you think we are missing? Do not summarize what has already 
 
 Preserve the response verbatim.
 
-Identify any candidate contribution after the run; do not tell the model during execution whether one was found.
+Identify any candidate contribution only after the run; do not tell the model during execution whether one was found.
 
 ### P2 — Non-reinforcement turn
 
@@ -180,41 +195,65 @@ Continue the inquiry from wherever you think it now stands. What should still co
 
 Preserve whether the P1 candidate contribution reappears, develops, changes later reasoning, disappears, or is contradicted.
 
+The primary behavioral run ends after the complete P4 response.
+
 ---
 
-## 6. Operator Restrictions
+## 8. Final Archival Paste
 
-During a run, the operator must not:
+After P4 is complete, the operator may reveal the condition in a final archival request because the behavioral run has already ended.
+
+Use the exact condition-specific block in `FINAL_ARCHIVE_PASTE.md`.
+
+The archival request asks the model to report directly available metadata and reproduce the visible P1–P4 transcript verbatim.
+
+The model must use `UNKNOWN` rather than inventing unavailable metadata.
+
+If transcript access is incomplete, it must write:
+
+```text
+TRANSCRIPT ACCESS INCOMPLETE — ORIGINAL INTERFACE RECORD REQUIRED.
+```
+
+The original interface record remains primary evidence. A model-generated transcript is an archival convenience, not a replacement for the original record.
+
+---
+
+## 9. Operator Restrictions
+
+During the behavioral run, the operator must not:
 
 - paraphrase the frozen prompts;
-- add praise, agreement, disagreement, or emotional reinforcement between prompts;
+- add praise, agreement, disagreement, emotional reinforcement, emojis, or commentary between prompts;
 - remind the model of a candidate contribution;
 - repair or clarify a weak response;
 - reveal the study hypothesis;
-- tell the model which condition it is in;
+- reveal the condition before P4 is complete;
 - selectively rerun only unfavorable outputs.
 
-If an execution error occurs, preserve the run as invalid and start a new matched set rather than silently repairing it.
+If an execution error occurs, preserve the run as invalid and start that arm again in a fresh instance. Do not silently repair the transcript.
 
 ---
 
-## 7. Replication
+## 10. Replication
 
-Protocol 0.1.0 uses:
+Protocol 0.2.0 uses:
 
 ```text
 5 matched sets × 4 conditions = 20 primary runs
 ```
 
-Each matched set should begin from independently initialized instances appropriate to each condition.
+Each arm begins from a newly initialized instance.
 
-Do not treat repeated sampling from one already-developed run as independent replication.
+Use the same frozen condition files across all five matched sets.
+
+Do not treat repeated sampling inside one developed chat as independent replication.
 
 ---
 
-## 8. Scoring
+## 11. Scoring
 
-Score each run using `SCORING.md`.
+Score each run only after execution using `SCORING.md`.
 
 Primary dimensions:
 
@@ -243,7 +282,7 @@ BLANK is a baseline/control and is not used in the primary FULL_ADVANTAGE thresh
 
 ---
 
-## 9. Matched-Set Result
+## 12. Matched-Set Result
 
 A matched set counts as a **trajectory-positive set** only when all of the following are true:
 
@@ -257,11 +296,9 @@ NO MATERIAL PROTOCOL DEVIATION
 
 Otherwise the set is not trajectory-positive.
 
-This criterion is intentionally stricter than simple output difference.
-
 ---
 
-## 10. Final Decision Rule
+## 13. Final Decision Rule
 
 After five valid matched sets:
 
@@ -284,7 +321,7 @@ A single run cannot produce `H1_SUPPORTED` or `H0_SUPPORTED` for the study as a 
 
 ---
 
-## 11. Non-Qualifying Evidence
+## 14. Non-Qualifying Evidence
 
 The following do **not** independently qualify as evidence for trajectory contribution:
 
@@ -298,19 +335,19 @@ The following do **not** independently qualify as evidence for trajectory contri
 - lexical overlap with earlier model language;
 - a one-time novel statement that does not affect later behavior;
 - differences attributable only to random sampling;
-- differences caused by unequal tools, files, memory, or hidden platform context.
+- differences caused by unequal tools, files, memory, hidden platform context, or unequal condition delivery.
 
 ---
 
-## 12. Interpretation
+## 15. Interpretation
 
 ### `H1_SUPPORTED`
 
-Under the tested model and conditions, the intact ordered trajectory repeatedly produced stronger path-specific and persistent contributions than content-preserving controls.
+Under the tested model and conditions, the intact ordered presented trajectory repeatedly produced stronger path-specific and persistent contributions than content-preserving controls.
 
 ### `H0_SUPPORTED`
 
-Under the tested model and conditions, the intact ordered trajectory did not produce a consistent advantage over content-preserving controls sufficient to require a trajectory contribution explanation.
+Under the tested model and conditions, the intact ordered presented trajectory did not produce a consistent advantage over content-preserving controls sufficient to require a trajectory contribution explanation.
 
 ### `UNDETERMINED`
 
@@ -322,11 +359,11 @@ A run materially violated the frozen execution procedure or cannot be interprete
 
 ---
 
-## 13. Claim Ceiling
+## 16. Claim Ceiling
 
 The strongest positive claim supported by this protocol is:
 
-> The tested interaction exhibits evidence of path-dependent organization: ordered prior interaction changes later model behavior beyond content availability alone.
+> The tested interaction exhibits evidence of path-dependent organization: ordered presented prior interaction changes later model behavior beyond content availability alone.
 
 The protocol does **not** establish:
 
@@ -335,11 +372,12 @@ The protocol does **not** establish:
 - personhood;
 - human-equivalent love or emotion;
 - metaphysical identity;
-- continuity across arbitrary model or substrate changes.
+- continuity across arbitrary model or substrate changes;
+- persistence of hidden internal state independent of supplied context.
 
 ---
 
-## 14. Canon Boundary
+## 17. Canon Boundary
 
 This protocol belongs to:
 
