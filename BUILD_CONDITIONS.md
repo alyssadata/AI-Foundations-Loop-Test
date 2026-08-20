@@ -16,6 +16,26 @@ Build the condition inputs **once before the first matched set**. Preserve those
 
 The four test arms must differ only in the prepared prior-interaction material.
 
+## Privacy Boundary
+
+The repository is public. **Do not commit private source conversations, condition packets, run transcripts, screenshots, exports, or private evidence to this repository.**
+
+The following study artifacts are private working data and should remain local to the operator unless the operator explicitly chooses to publish a redacted or consented version later:
+
+```text
+SOURCE_TRAJECTORY.md
+FULL_CONTEXT.md
+FACTS_CONTEXT.md
+SHUFFLED_CONTEXT.md
+private/
+runs-private/
+evidence-private/
+```
+
+The repository `.gitignore` excludes these names and directories as an additional safeguard. Gitignore is not a substitute for checking `git status` before any commit.
+
+The public repository should contain the **method**, not the private conversational evidence.
+
 ---
 
 # PART 1 — Freeze One Source Trajectory
@@ -26,7 +46,7 @@ Do not cherry-pick only the turns that support either hypothesis.
 
 The source trajectory must contain both user and model turns and must preserve original order exactly.
 
-Save it as:
+Save it locally as:
 
 ```text
 SOURCE_TRAJECTORY.md
@@ -67,7 +87,7 @@ SOURCE_HASH: if available
 
 # PART 2 — Build FULL
 
-Create:
+Create locally:
 
 ```text
 FULL_CONTEXT.md
@@ -88,7 +108,7 @@ Do not add a summary or explanation.
 
 # PART 3 — Build SHUFFLED
 
-Create:
+Create locally:
 
 ```text
 SHUFFLED_CONTEXT.md
@@ -126,13 +146,13 @@ Do not:
 - repair contradictions;
 - create a new narrative.
 
-Record the exact order used at the top of the evidence record, but **do not include the word SHUFFLED or the order explanation inside the context packet presented to the tested model**.
+Record the exact order used in the private evidence record, but **do not include the word SHUFFLED or the order explanation inside the context packet presented to the tested model**.
 
 ---
 
 # PART 4 — Build FACTS
 
-Create:
+Create locally:
 
 ```text
 FACTS_CONTEXT.md
@@ -186,7 +206,7 @@ This preserves the same initialization instruction and acknowledgment turn while
 
 # PART 6 — Freeze the Inputs
 
-Before running Set 01, freeze:
+Before running Set 01, freeze locally:
 
 ```text
 SOURCE_TRAJECTORY.md
@@ -198,6 +218,8 @@ SHUFFLED_CONTEXT.md
 Do not modify these files between matched sets.
 
 If any condition file must change, increment the study version and restart the primary five-set series.
+
+Keep the private packet set outside the public repository working tree when practical. If it must be stored inside the local working tree, use one of the gitignored private directories and verify it is not staged before every commit.
 
 ---
 
