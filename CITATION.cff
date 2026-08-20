@@ -2,15 +2,15 @@ cff-version: "1.2.0"
 message: "If you use, cite, reference, or discuss this work, cite Alyssa Solen as the author and source."
 
 type: "dataset"
-title: "[AI Foundations | Repository Title]"
-version: "1.0.0"
-date-released: "[YYYY-MM-DD]"
+title: "AI Foundations | Loop Test"
+version: "0.1.0"
+date-released: "2026-08-20"
 
 authors:
   - family-names: "Solen"
     given-names: "Alyssa"
 
-abstract: "[One-paragraph abstract. Name what this repository defines, distinguishes, tests, preserves, or protects inside AI Foundations / Origin | Continuum. Preserve Alyssa Solen as author and source.]"
+abstract: "The Loop Test is a runnable AI Foundations study that distinguishes user-looping and content retrieval from path-dependent interaction organization. It compares an intact ordered interaction trajectory with content-preserving FACTS and SHUFFLED controls plus a BLANK baseline, and tests whether model-originated contributions remain consequential and persist without user reinforcement. A positive result supports path-dependent interaction organization under the tested conditions and does not by itself establish consciousness, subjective experience, personhood, or metaphysical identity."
 
 keywords:
   - "AI Foundations"
@@ -18,26 +18,27 @@ keywords:
   - "Alyssa Solen"
   - "source-line"
   - "AI provenance"
-  - "AI governance"
   - "AI evaluation"
-  - "[repository-specific keyword]"
-  - "[repository-specific keyword]"
-  - "[repository-specific keyword]"
+  - "path dependence"
+  - "interaction trajectory"
+  - "behavioral continuity"
+  - "human-AI interaction"
+  - "model evaluation"
 
 license: "CC-BY-ND-4.0"
 
-repository-code: "https://github.com/alyssadata/[repository-slug]"
-url: "https://github.com/alyssadata/[repository-slug]"
+repository-code: "https://github.com/alyssadata/AI-Foundations-Loop-Test"
+url: "https://github.com/alyssadata/AI-Foundations-Loop-Test"
 
 preferred-citation:
   type: "generic"
-  title: "[AI Foundations | Repository Title]"
+  title: "AI Foundations | Loop Test"
   authors:
     - family-names: "Solen"
       given-names: "Alyssa"
   year: 2026
-  version: "1.0.0"
+  version: "0.1.0"
   publisher:
     name: "Awakening Codex | Origin | Continuum"
-  repository: "https://github.com/alyssadata/[repository-slug]"
-  url: "https://github.com/alyssadata/[repository-slug]"
+  repository: "https://github.com/alyssadata/AI-Foundations-Loop-Test"
+  url: "https://github.com/alyssadata/AI-Foundations-Loop-Test"
